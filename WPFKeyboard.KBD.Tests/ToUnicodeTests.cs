@@ -23,7 +23,10 @@ namespace WPFKeyboard.KBD.Tests
 
         public override InstalledKeyboardLayout GetKeyboardLayout()
         {
-            return KeyboardHelper.InstalledKeyboardLayouts[((NativeMethods.GetKeyboardLayout(0).ToInt32() >> 16) & 0xFFFF).ToString("x8")];
+            StringBuilder locale = new StringBuilder(new string(' ', 256));
+            string handle;
+            NativeMethods.GetKeyboardLayoutName(locale);
+            return KeyboardHelper.InstalledKeyboardLayouts[locale.ToString()];
         }
     }
 }

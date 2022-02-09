@@ -30,7 +30,10 @@ namespace Sample
             InitializeComponent();
             VirtualKeyboard.OnScreenKeyControlBuilder = new SampleKeyControlBuilder();
             VirtualKeyboard.DataContext = new KPDOnScreenKeyboardViewModel();
-            var handle = ((NativeMethods.GetKeyboardLayout(0).ToInt32() >> 16) & 0xFFFF).ToString("x8");
+            StringBuilder locale = new StringBuilder(new string(' ', 256));
+            string handle;
+            NativeMethods.GetKeyboardLayoutName(locale);
+            handle = locale.ToString();
             ((KPDOnScreenKeyboardViewModel)VirtualKeyboard.DataContext).Refresh(KeyboardHelper.InstalledKeyboardLayouts[handle], new ModiferStateManager());
         }
     }
